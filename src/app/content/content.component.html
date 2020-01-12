@@ -1,4 +1,5 @@
-<div class="container py-4">
-    <app-content-header></app-content-header>
-    <app-content-content></app-content-content>
-</div>
+<div  class="container py-4">
+    <app-content-header [title]="title"></app-content-header>
+    
+    <app-content-list *ngIf="data.length !== 0" [data]="data"></app-content-list>
+</div >

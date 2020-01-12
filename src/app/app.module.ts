@@ -4,8 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HeaderComponent } from './header/header.component'
-import { ContentModule } from './content/content.module'
+// http
+import { HttpClientModule } from '@angular/common/http';
+
+// Template
+import { HeaderComponent } from './header/header.component';
+import { ContentModule } from './content/content.module';
+
+// Category
+import { CategoryModule } from './category/category.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +22,9 @@ import { ContentModule } from './content/content.module'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ContentModule
+    ContentModule,
+    CategoryModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

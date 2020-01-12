@@ -7,11 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ContentListComponent implements OnInit {
 
+  @Input() name: string = '';
   @Input() data: object[] = [];
-
+  @Input() baseRouterLink: string = '';
+  
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleDone(id) {
+    
   }
 
 }

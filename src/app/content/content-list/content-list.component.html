@@ -1,15 +1,33 @@
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Descrição</th>
+            <th scope="col" class="actions-column">
+                Ações
+                &nbsp;
+                <button class="btn btn-primary" [routerLink]="[baseRouterLink, 'new']">
+                    <i class="fa fa-plus"></i>&nbsp;<b>Criar</b>
+                </button>
+            </th>
         </tr>
     </thead>
 
     <tbody>
         <tr *ngFor="let item of data">
-            <th scope="row"> {{ item.id }} </th>
+            <th scope="row">{{ item.id }}</th>
             <td>{{ item.name }}</td>
+            <td class="actions-column">
+                <button class="btn btn-success mr-2" *ngIf="name == 'Item'" (click)="toggleDone(item.id)">
+                    <i class="fa fa-check"></i>
+                </button>
+                <button class="btn btn-warning mr-2" [routerLink]="[baseRouterLink, item.id]">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger mr-2" [routerLink]="[baseRouterLink, item.id]" [queryParams]="{delete:true}">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

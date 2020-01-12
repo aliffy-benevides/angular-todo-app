@@ -1,3 +1,11 @@
-<app-content-header [title]="title"></app-content-header>
+<div *ngIf="item">
+    <app-content-header [title]="title" subtitle="Cadastro"></app-content-header>
+    <app-content-form [name]="name" [item]="item"
+        [baseRouterLink]="baseRouterLink"></app-content-form>
+</div>
 
-<app-content-list *ngIf="data.length !== 0" [data]="data"></app-content-list>
+<div *ngIf="data.length !== 0">
+    <app-content-header [title]="title" subtitle="Lista"></app-content-header>
+    <app-content-list [name]="name" [data]="data" 
+        [baseRouterLink]="baseRouterLink"></app-content-list>
+</div>

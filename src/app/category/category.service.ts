@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
@@ -17,5 +17,21 @@ export class CategoryService {
 
   list() {
     return this.http.get<Category[]>(this.baseServiceUrl);
+  }
+
+  get(id) {
+    return this.http.get<Category>(`${this.baseServiceUrl}/${id}`);
+  }
+
+  save(body) {
+    if (body.id) {
+      return this.http.put(`${this.baseServiceUrl}/${body.id}`, body)
+    } else {
+      return this.http.post(`${this.baseServiceUrl}`, body)
+    }
+  }
+
+  remove(id) {
+    return this.http.delete(`${this.baseServiceUrl}/${id}`);
   }
 }

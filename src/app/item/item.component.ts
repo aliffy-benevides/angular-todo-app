@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { ListService } from './list.service';
-import { List } from './list';
+import { ItemService } from './item.service'
+import { Item } from './item'
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'app-item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.css']
 })
-export class ListComponent implements OnInit {
+export class ItemComponent implements OnInit {
 
-  name: string = 'List';
-  title: string = 'Listas';
-  lists: List[] = [];
+  name: string = 'Item';
+  title: string = 'Itens';
+  items: Item[] = [];
 
-  list: List = null;
+  item: Item = null;
 
   baseServiceUrl: string;
 
@@ -24,41 +24,44 @@ export class ListComponent implements OnInit {
   getSubscription: Subscription = null;
   paramsSubscription: Subscription = null;
   getBaseServiceUrlSubscription: Subscription = null;
-
+  
   constructor(
-    private service: ListService,
+    private service: ItemService,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.getBaseServiceUrlSubscription = this.route.params
       .subscribe((params: any) => {
         const categoryId = params['categoryId'];
-        this.baseServiceUrl = this.service.setBaseServiceUrl(categoryId);
+        const listId = params['listId'];
+        this.baseServiceUrl = this.service.setBaseServiceUrl(categoryId, listId);
       })
   }
 
   ngOnInit() {
     this.listSubscription = this.service.list()
-      .subscribe(data => this.lists = data)
+      .subscribe(data => this.items = data)
 
-    this.paramsSubscription = this.route.params
+      this.paramsSubscription = this.route.params
       .subscribe((params: any) => {
         const categoryId = params['categoryId']
         const listId = params['listId']
+        const itemId = params['itemId']
 
-        if (listId) {
-          if (listId === 'new') {
-            this.list = {
+        if (itemId) {
+          if (itemId === 'new') {
+            this.item = {
               id: '',
-              name: ''
+              name: '',
+              done: false
             }
           } else {
-            this.getSubscription = this.service.get(listId)
+            this.getSubscription = this.service.get(itemId)
               .subscribe(
-                data => this.list = data,
+                data => this.item = data,
                 error => {
-                  console.error('Erro na requisição da lista', error);
-                  this.router.navigate(['/categories', categoryId, 'lists']);
+                  console.error('Erro na requisição do item', error);
+                  this.router.navigate(['/categories', categoryId, 'lists', listId, 'items']);
                 }
               )
           }

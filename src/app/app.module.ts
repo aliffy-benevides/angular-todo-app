@@ -15,6 +15,7 @@ import { ContentModule } from './content/content.module';
 import { HomeComponent } from './home/home.component';
 import { CategoryModule } from './category/category.module';
 import { ListModule } from './list/list.module';
+import { ItemModule } from './item/item.module';
 
 @NgModule({
    declarations: [
@@ -28,7 +29,8 @@ import { ListModule } from './list/list.module';
       HttpClientModule,
       ContentModule,
       CategoryModule,
-      ListModule
+      ListModule,
+      ItemModule
    ],
    providers: [],
    bootstrap: [

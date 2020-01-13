@@ -18,7 +18,7 @@
             <th scope="row">{{ item.id }}</th>
             <td>
                 <a *ngIf="name == 'Category' || name == 'List'" 
-                    [routerLink]="[baseRouterLink, item.id, name == 'Category' ? 'lists' : 'itens']">
+                    [routerLink]="[baseRouterLink, item.id, name == 'Category' ? 'lists' : 'items']">
                     {{ item.name }}
                 </a>
                 <span *ngIf="name != 'Category' && name != 'List'">{{ item.name }}</span>

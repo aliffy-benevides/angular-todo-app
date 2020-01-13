@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { CategoryService } from 'src/app/category/category.service';
 import { ListService } from 'src/app/list/list.service';
+import { ItemService } from 'src/app/item/item.service';
 
 @Component({
   selector: 'app-content-form',
@@ -25,14 +26,15 @@ export class ContentFormComponent implements OnInit {
   queryParamsSubscription: Subscription;
   submitSubscription: Subscription;
 
-  service: CategoryService | ListService;
+  service: CategoryService | ListService | ItemService;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService,
-    private listService: ListService
+    private listService: ListService,
+    private itemService: ItemService
   ) { }
   
   ngOnInit() {
@@ -40,6 +42,8 @@ export class ContentFormComponent implements OnInit {
       this.service = this.categoryService;
     } else if(this.name == "List") {
       this.service = this.listService;
+    } else if(this.name == "Item") {
+      this.service = this.itemService;
     }
   }
   

@@ -3,31 +3,31 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
-import { List } from './list'
+import { Item } from './item'
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListService {
+export class ItemService {
 
   private readonly baseApiUrl = environment.baseApiUrl
   private baseServiceUrl = `${this.baseApiUrl}categories`
 
   constructor(private http: HttpClient) { }
 
-  setBaseServiceUrl(categoryId) {
+  setBaseServiceUrl(categoryId, listId) {
     if(!this.baseServiceUrl.includes('lists')) {
-      this.baseServiceUrl += `/${categoryId}/lists`;
+      this.baseServiceUrl += `/${categoryId}/lists/${listId}/items`;
     }
     return this.baseServiceUrl.replace(this.baseApiUrl, '/');
   }
 
   list() {
-    return this.http.get<List[]>(this.baseServiceUrl);
+    return this.http.get<Item[]>(this.baseServiceUrl);
   }
 
   get(id) {
-    return this.http.get<List>(`${this.baseServiceUrl}/${id}`);
+    return this.http.get<Item>(`${this.baseServiceUrl}/${id}`);
   }
 
   save(body) {

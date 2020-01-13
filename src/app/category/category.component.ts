@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { CategoryService } from './category.service';
 import { Category } from './category';
-
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -46,10 +45,10 @@ export class CategoryComponent implements OnInit {
           } else {
             this.getSubscription = this.service.get(categoryId)
               .subscribe(
-                category => this.category = category,
+                data => this.category = data,
                 error => {
                   console.error('Erro na requisição da categoria', error);
-                  this.router.navigate(['categories']);
+                  this.router.navigate(['/categories']);
                 }
               )
           }

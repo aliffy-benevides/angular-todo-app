@@ -8,14 +8,14 @@
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Descrição</label>
         <div class="col-sm-10">
-            <input class="form-control" id="name" formControlName="name" placeholder="Descrição" [readonly]="readonly">
+            <input class="form-control" id="name" formControlName="name" placeholder="Descrição" [readonly]="deleteMode">
         </div>
     </div>
     <div class="form-group row" *ngIf="item.done !== undefined && item.done !== null">
         <div class="col-sm-2">Concluído?</div>
         <div class="col-sm-10">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="done" formControlName="done">
+                <input class="form-check-input" type="checkbox" id="done" formControlName="done" [readonly]="deleteMode">
                 <label class="form-check-label" for="done"></label>
             </div>
         </div>

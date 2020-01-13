@@ -16,7 +16,13 @@
     <tbody>
         <tr *ngFor="let item of data">
             <th scope="row">{{ item.id }}</th>
-            <td>{{ item.name }}</td>
+            <td>
+                <a *ngIf="name == 'Category' || name == 'List'" 
+                    [routerLink]="[baseRouterLink, item.id, name == 'Category' ? 'lists' : 'itens']">
+                    {{ item.name }}
+                </a>
+                <span *ngIf="name != 'Category' && name != 'List'">{{ item.name }}</span>
+            </td>
             <td class="actions-column">
                 <button class="btn btn-success mr-2" *ngIf="name == 'Item'" (click)="toggleDone(item.id)">
                     <i class="fa fa-check"></i>

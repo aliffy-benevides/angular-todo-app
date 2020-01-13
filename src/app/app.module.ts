@@ -11,9 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { ContentModule } from './content/content.module';
 
-// Category
-import { CategoryModule } from './category/category.module';
+// Screens
 import { HomeComponent } from './home/home.component';
+import { CategoryModule } from './category/category.module';
+import { ListModule } from './list/list.module';
 
 @NgModule({
    declarations: [
@@ -24,9 +25,10 @@ import { HomeComponent } from './home/home.component';
    imports: [
       BrowserModule,
       AppRoutingModule,
+      HttpClientModule,
       ContentModule,
       CategoryModule,
-      HttpClientModule
+      ListModule
    ],
    providers: [],
    bootstrap: [

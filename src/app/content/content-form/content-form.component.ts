@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { CategoryService } from 'src/app/category/category.service';
+import { ListService } from 'src/app/list/list.service';
 
 @Component({
   selector: 'app-content-form',
@@ -21,16 +22,29 @@ export class ContentFormComponent implements OnInit {
 
   deleteMode: boolean = false;
 
-  queryParamsSubscription: Subscription
+  queryParamsSubscription: Subscription;
+  submitSubscription: Subscription;
+
+  service: CategoryService | ListService;
 
   constructor(
-    private formBuilder : FormBuilder, 
-    private categoryService: CategoryService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService,
+    private listService: ListService
   ) { }
-
+  
   ngOnInit() {
+    if(this.name == "Category") {
+      this.service = this.categoryService;
+    } else if(this.name == "List") {
+      this.service = this.listService;
+    }
+  }
+  
+  ngOnChanges() {
+    this.checkoutForm = this.formBuilder.group(this.item);
     this.queryParamsSubscription = this.route.queryParams
       .subscribe(
         queryParams => this.deleteMode = queryParams['delete'] || false,
@@ -40,28 +54,26 @@ export class ContentFormComponent implements OnInit {
         }
       )
   }
-  
-  ngOnChanges() {
-    this.checkoutForm = this.formBuilder.group(this.item);
-  }
 
   ngOnDestroy() {
     this.checkoutForm = null;
+    this.submitSubscription && this.submitSubscription.unsubscribe();
   }
 
   onSubmit(data) {
-    if(this.name == 'Category') {
-      if(this.deleteMode) {
-        this.categoryService.remove(data.id)
-      } else {
-        this.categoryService.save(data)
-          .subscribe(
-            data => { return; }, 
-            error => console.error('Erro no submit', error),
-            () => this.router.navigate([this.baseRouterLink])
-          )
-      }
+    let submit;
+    
+    if (this.deleteMode) {
+      submit = this.service.remove(data.id)
+    } else {
+      submit = this.service.save(data)
     }
+    
+    this.submitSubscription = submit.subscribe(
+      () => { return; },
+      error => console.error('Erro no submit', error),
+      () => this.router.navigate([this.baseRouterLink])
+    )
   }
 
   onCancel() {

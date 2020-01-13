@@ -1,11 +1,22 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li *ngFor="let route of routerLinks"
+      class="breadcrumb-item{{ route.isLast ? ' active' : ''}}"
+      [attr.aria-current]="route.isLast ? 'page' : null"
+    >
+      <a *ngIf="!route.isLast" 
+        [routerLink]="route.routerLink">{{ route.path }}</a>
+      <span *ngIf="route.isLast">{{ route.path }}</span>
+    </li>
+  </ol>
+</nav>
+
 <div *ngIf="item">
-    <app-content-header [title]="title" subtitle="Formulário"></app-content-header>
-    <app-content-form [name]="name" [item]="item"
-        [baseRouterLink]="baseRouterLink"></app-content-form>
+  <app-content-header [title]="title" subtitle="Formulário"></app-content-header>
+  <app-content-form [name]="name" [item]="item" [baseRouterLink]="baseRouterLink"></app-content-form>
 </div>
 
 <div>
-    <app-content-header [title]="title" subtitle="Listagem"></app-content-header>
-    <app-content-list [name]="name" [data]="data" 
-        [baseRouterLink]="baseRouterLink"></app-content-list>
+  <app-content-header [title]="title" subtitle="Listagem"></app-content-header>
+  <app-content-list [name]="name" [data]="data" [baseRouterLink]="baseRouterLink"></app-content-list>
 </div>
